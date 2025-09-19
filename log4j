@@ -7,3 +7,10 @@ log4j.appender.RollingAppender.layout.ConversionPattern=[%d{yyyy-MM-dd HH:mm:ss}
 
 
 https://www.notion.so/Software-Testing-269395b780c580e3af3ce29e972919e5
+
+options.addArguments("--disable-blink-features=AutomationControlled");
+                options.addArguments("--no-sandbox");
+                options.addArguments("--disable-dev-shm-usage");
+                options.addArguments("--remote-allow-origins=*");
+                options.addArguments("--disable-gpu");
+                options.addArguments("--disable-notifications");

@@ -4,3 +4,6 @@ log4j.appender.RollingAppender=org.apache.log4j.DailyRollingFileAppender
 log4j.appender.RollingAppender.File=logs/logs.log
 log4j.appender.RollingAppender.layout=org.apache.log4j.PatternLayout
 log4j.appender.RollingAppender.layout.ConversionPattern=[%d{yyyy-MM-dd HH:mm:ss}] [%p] %c %M - %m%n
+
+
+https://www.notion.so/Software-Testing-269395b780c580e3af3ce29e972919e5

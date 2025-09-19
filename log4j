@@ -48,3 +48,138 @@ JavascriptExecutor js = (JavascriptExecutor) driver;
         spark.config().setTheme(Theme.DARK);
 
         reports.attachReporter(spark);
+
+
+
+package pages;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.WebDriver;
+
+import com.aventstack.extentreports.ExtentReports;
+
+import uistore.Locators;
+import utils.ExcelReader;
+import utils.LoggerHandler;
+import utils.WebDriverHelper;
+
+public class Page {
+
+    WebDriverHelper helper;
+    public Page(WebDriver driver,ExtentReports reports)
+    {
+        helper=new WebDriverHelper(driver);
+    }
+
+    public void testcase() throws IOException
+    {
+        // XSSFWorkbook workbook=new XSSFWorkbook("testdata/Data.xlsx");
+        // Sheet sheet=workbook.getSheet("Sheet1");
+        // Row row=sheet.getRow(0);
+
+        // Cell cell1=row.getCell(0);
+        // Cell cell2=row.getCell(1);
+        // String name=cell1.getStringCellValue();
+        // String pass=cell2.getStringCellValue();
+
+        LoggerHandler.initLog4j();
+
+        helper.clickOnElement(Locators.login);
+        helper.clickOnElement(Locators.email);
+        String name=ExcelReader.readdata("testdata/Data.xlsx", "Sheet1", 0, 0);
+        helper.sendKeys(Locators.email, name);
+        helper.clickOnElement(Locators.password);
+        String pass=ExcelReader.readdata("testdata/Data.xlsx", "Sheet1", 0, 1);
+        helper.sendKeys(Locators.email, pass);
+        helper.clickOnElement(Locators.button);
+        LoggerHandler.logInfo("This is passed");
+    }
+}
+
+
+package runner;
+
+import java.net.MalformedURLException;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.reporter.ExtentReporter;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+
+import pages.Page;
+import utils.Base;
+import utils.ExcelReader;
+import utils.Reporter;
+import utils.Screenshot;
+
+
+public class TestSample extends Base{
+
+    Page p;
+    ExtentReports reports;
+
+    @BeforeClass
+    public void toreport()
+    {
+        reports = Reporter.generateExtentReport("action");
+
+    }
+
+    @BeforeMethod
+    public void launch() throws MalformedURLException 
+    {
+        openBrowser();
+        p=new Page(driver,reports);
+    }
+
+    @Test
+    public void testOne() throws Exception{
+        // write or call ur pages here
+        p.testcase();
+        Screenshot.getScreenShot(driver, "secreenshot/img.png");
+
+
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        // quit the driver here
+        if(driver!=null)
+        {
+            driver.quit();
+        }
+    }
+
+    @AfterClass
+    public void toclose()
+    {
+        reports.flush();
+    }
+}
+
+
+package uistore;
+
+import org.openqa.selenium.By;
+
+public class Locators {
+    public static By login=By.xpath("//a[text()='Login']");
+    public static By email=By.xpath("//input[@id='exampleInputEmail']");
+    public static By password=By.xpath("//input[@id='exampleInputPassword']");
+    public static By button=By.xpath("//button[text()='Login']");
+}

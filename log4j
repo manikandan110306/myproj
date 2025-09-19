@@ -14,3 +14,7 @@ options.addArguments("--disable-blink-features=AutomationControlled");
                 options.addArguments("--remote-allow-origins=*");
                 options.addArguments("--disable-gpu");
                 options.addArguments("--disable-notifications");
+
+
+
+https://www.notion.so/SoftWare-Testing-266029f4bf0f8086a394f0bc2fcec83d

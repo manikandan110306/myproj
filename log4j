@@ -18,3 +18,21 @@ options.addArguments("--disable-blink-features=AutomationControlled");
 
 
 https://www.notion.so/SoftWare-Testing-266029f4bf0f8086a394f0bc2fcec83d
+
+TakesScreenshot ts = (TakesScreenshot) driver;
+        File source = ts.getScreenshotAs(OutputType.FILE);
+        String destination = "screenshots/picture.png";
+        FileUtils.copyFile(source, new File(destination));
+
+String parentWindow = driver.getWindowHandle();
+            Set<String> allWindows = driver.getWindowHandles();
+
+            for (String windowHandle : allWindows) {
+                if (!windowHandle.equals(parentWindow)) {
+                    driver.switchTo().window(windowHandle);
+                    break;
+                }
+            }
+
+JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("arguments[0].scrollIntoView(true);", element);

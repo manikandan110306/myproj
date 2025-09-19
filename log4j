@@ -39,3 +39,12 @@ JavascriptExecutor js = (JavascriptExecutor) driver;
 
  String label = driver.findElement(By.xpath("//label[contains(text(),'Enter OTP')]")).getText();
         EventHandler.assertEquals(label,"Enter OTP recieved on your Email/Mobile");
+
+ reports=new ExtentReports();
+        ExtentSparkReporter spark=new ExtentSparkReporter("reports/myReport.html");
+
+        spark.config().setDocumentTitle("OrangeHRM Project");
+        spark.config().setReportName("Testcase Report");
+        spark.config().setTheme(Theme.DARK);
+
+        reports.attachReporter(spark);

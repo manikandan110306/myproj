@@ -36,3 +36,6 @@ String parentWindow = driver.getWindowHandle();
 
 JavascriptExecutor js = (JavascriptExecutor) driver;
             js.executeScript("arguments[0].scrollIntoView(true);", element);
+
+ String label = driver.findElement(By.xpath("//label[contains(text(),'Enter OTP')]")).getText();
+        EventHandler.assertEquals(label,"Enter OTP recieved on your Email/Mobile");
